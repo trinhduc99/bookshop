@@ -14,4 +14,19 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
+
+    public function parentId()
+    {
+        return $this->belongsTo(Category::class,'parent_id','id');
+    }
+
+    public function parentIdDelete()
+    {
+        return $this->belongsTo(Category::class,'parent_id','id')->onlyTrashed();
+    }
+
+    public function childrenId()
+    {
+        return $this->hasMany(Category::class,'parent_id','id');
+    }
 }

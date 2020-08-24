@@ -9,7 +9,7 @@
     <div class="content-wrapper">
         <div class="col-md-12">
         </div>
-        @include('partials.content-header',['name'=>'Product','key'=>'Add'])
+        @include('partials.content-header',['name'=>'Thêm sản phẩm','key'=>''])
         <form action="{{route('products.store')}}" method="post"
               enctype="multipart/form-data"
               >
@@ -19,31 +19,34 @@
                         <div class="col-md-6">
                             @csrf
                             <div class="form-group">
-                                <label>Name book</label>
+                                <a href="{{url()->previous()}}" class="btn btn-dark">
+                                    Back to list
+                                </a><br><br>
+                                <label>Tên sách</label>
                                 <input type="text"
                                        name="name"
                                        value="{{old('name')}}"
                                        class="form-control @error('name') is-invalid @enderror"
-                                       placeholder="Insert name of product"
+                                       placeholder="Nhập tên sách"
                                 >
                                 @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group" >
-                                <label>Name Author</label>
+                                <label>Tên tác giả</label>
                                 <input type="text"
                                        name="name_author"
                                        value="{{old('name_author')}}"
                                        class="form-control @error('name_author') is-invalid @enderror"
-                                       placeholder="Insert name author"
+                                       placeholder="Nhập tên tác giả"
                                 >
                                 @error('name_author')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group" >
-                                <label>Avatar Book</label>
+                                <label>Ảnh đại diện</label>
                                 <input type="file"
                                        id="profile-img"
                                        name="feature_image_path"
@@ -56,10 +59,10 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Choose Category</label>
+                                <label>Chọn danh mục</label>
                                 <select class="form-control  @error('category_id') is-invalid @enderror"
                                         name="category_id">
-                                    <option value="">Choose Category</option>
+                                    <option value="">Chọn danh mục</option>
                                     {!! $htmlOptions  !!}
                                 </select>
                                 @error('category_id')
@@ -69,7 +72,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Insert Content</label>
+                                <label>Nhập nội dung</label>
                                 <textarea name="contents" id="ckeditor1"
                                           class="form-control @error('contents') is-invalid @enderror"
                                           rows="5">{{old('contents')}}</textarea>
@@ -89,13 +92,12 @@
     </div>
 @endsection
 @section('js')
-    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-    <script type="text/javascript">
+    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+    <script>
         CKEDITOR.replace('ckeditor1');
         function readURL(input) {
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
-
                 reader.onload = function (e) {
                     $('#profile-img-tag2').attr('href', e.target.result);
                     $('#profile-img-tag').attr('src', e.target.result);

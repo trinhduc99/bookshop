@@ -11,14 +11,14 @@ trait DeleteModelTrait
         try {
             $model->find($id)->delete();
             return response()->json([
-                'code'  => 200,
-                'message' =>    'success'
-            ],200);
+                'code' => 200,
+                'message' => 'success'
+            ], 200);
         } catch (\Exception $exception) {
-            Log::error('Message: ' .$exception.'----Line :'.$exception->getLine());
+            Log::error('Message: ' . $exception . '----Line :' . $exception->getLine());
             return response()->json([
-                'code' => 500 ,
-                'message'   => 'fail'
+                'code' => 500,
+                'message' => 'fail'
             ], 500);
         }
     }

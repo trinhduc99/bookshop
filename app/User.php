@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable , SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,11 +17,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-        'facebook_id'
+        'name', 'email', 'password','deleted_at'
     ];
 
-    protected $guarded = [];
+//    protected $guarded = [];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -42,4 +42,8 @@ class User extends Authenticatable
      * @var mixed
      */
 
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id', 'id');
+    }
 }

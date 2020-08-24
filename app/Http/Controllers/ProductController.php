@@ -16,11 +16,39 @@ class ProductController extends Controller
     use StorageImageTrait;
     use DeleteModelTrait;
 
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     public function index()
     {
-        $products = Product::all();
+        $products = Product::latest()->get();
         return view('admin.product.index', compact('products'));
     }
+
+    public function deleteView()
+    {
+        $products = Product::onlyTrashed()->get();
+        return view('admin.product.deleteView', compact('products'));
+    }
+
+    public function deleteUpdate($id, $category_id)
+    {
+        $product = Category::onlyTrashed()->where('id', $category_id)->count();
+        if (($product > 0)) {
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail'
+            ], 500);
+        }
+        Product::withTrashed()->find($id)->restore();
+        return response()->json([
+            'code' => 200,
+            'message' => 'success'
+        ], 200);
+    }
+
 
     public function create()
     {
@@ -45,17 +73,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         $htmlOptions = $this->getCategory($product->category_id);
         return view('admin.product.edit', compact('htmlOptions', 'product'));
-    }
-
-    public function show($id)
-    {
-        $product = Product::find($id);
-        if (isset($product->category->name)) {
-            $category = $product->category->name;
-        } else {
-            $category = "";
-        }
-        return view('admin.product.show', compact('category', 'product'));
     }
 
     public function update(UpdateProduct $request, $id)

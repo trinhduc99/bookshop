@@ -6,7 +6,7 @@
 
 @section('contents')
     <div class="content-wrapper">
-        @include('partials.content-header',['name'=>'Product','key'=>'List'])
+        @include('partials.content-header',['name'=>'Danh sách sản phẩm','key'=>''])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -19,44 +19,43 @@
                         <table class="table table-bordered table-striped table-hover datatable datatable-Speaker">
                             <thead>
                             <tr>
-                                <th width="5%">
-                                    Number
+                                <th width="5%" class="text-center">
+                                    ID
                                 </th>
-                                <th scope="col" width="10%">Name</th>
-                                <th scope="col" width="20%">Name Author</th>
-                                <th scope="col" width="20%">Image</th>
-                                <th scope="col" width="10%">Category</th>
-                                <th scope="col" width="30%">Content</th>
-                                <th scope="col" width="10%">Action</th>
+                                <td scope="col" class="text-center" width="15%">Tên sách</td>
+                                <td scope="col" class="text-center" width="15%">Tên tác giả</td>
+                                <th scope="col" class="text-center" width="15%">Avatar</th>
+                                <th scope="col" class="text-center" width="15%">Danh mục</th>
+                                <th scope="col" class="text-center" width="15%">Nội dung</th>
+                                <th scope="col" class="text-center" width="15%">Hành động</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($products as $productsItem)
                                 <tr>
-                                    <th scope="row">{{$productsItem->id}}</th>
-                                    <th scope="row">{{$productsItem->name}}</th>
-                                    <td>{{$productsItem->name_author}}</td>
-                                    <td>
+                                    <th scope="row" class="text-center">{{$productsItem->id}}</th>
+                                    <th scope="row" class="text-center">{{$productsItem->name}}</th>
+                                    <td class="text-center">{{$productsItem->name_author}}</td>
+                                    <td class="text-center">
                                         <a href="{{$productsItem->image_path}}" target="_blank">
-                                            <img width="150" height="100" src="{{$productsItem->image_path}}"
+                                            <img width="100%" src="{{$productsItem->image_path}}"
                                                  alt="{{$productsItem->image_name}}">
                                         </a>
                                     </td>
-                                    <td>{{optional($productsItem->category)->name }}</td>
-                                    <td>{!!$productsItem->content!!}</td>
-                                    <td>
+                                    <td class="text-center">{{optional($productsItem->category)->name }}</td>
+                                    <td class="text-center">{!!$productsItem->content!!}</td>
+                                    <td class="text-center">
+                                        @can('product-edit',$productsItem->id)
+                                            @include('admin.product.show')
+                                        @endcan
                                         @can('product-edit',$productsItem->id)
                                             <a href="{{route('products.edit',['id' => $productsItem->id])}}"
-                                               class="btn btn-info">Edit</a> <br>
-                                        @endcan
-                                        @can('product-show',$productsItem->id)
-                                            <a href="{{route('products.show',['id' => $productsItem->id])}}"
-                                               class="btn btn-primary">View</a> <br>
+                                               class="btn btn-info"><i class="fas fa-edit"></i></a>
                                         @endcan
                                         @can('product-delete', $productsItem->id)
-                                                <a href=""
-                                                   data-url=" {{route('products.delete',['id'=>$productsItem->id])}}"
-                                                   class="btn btn-danger action_delete">Delete</a>
+                                            <a href=""
+                                               data-url=" {{route('products.delete',['id'=>$productsItem->id])}}"
+                                               class="btn btn-danger action_delete"><i class="fas fa-trash"></i></a>
                                         @endcan
                                     </td>
                                 </tr>

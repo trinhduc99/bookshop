@@ -72,14 +72,12 @@ class CreateUserAdmin extends Command
             $user->role = 'admin';
             $user->remember_token = Str::random(20);
             $user->save();
-
             $this->info('Staff Account created.');
             return 0;
         } catch (\Exception $exception) {
 
             Log::error('Message : ' . $exception->getMessage() . "---------Line :" . $exception->getLine());
         }
-
     }
 
     public function Validate($userName, $email, $password,$password_confirmation)

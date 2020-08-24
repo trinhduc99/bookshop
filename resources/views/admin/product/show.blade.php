@@ -1,94 +1,104 @@
-@extends('layouts.admin')
-@section('title')
-    <title>List category</title>
-@endsection
-@section('contents')
-    <div class="content-wrapper">
-        @include('partials.content-header',['name'=>'Product Book','key'=>'View'])
-        <div class="content">
-            <div class="container-fluid">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <table class="table table table-bordered table-striped">
-                            <tbody>
-                            <tr>
-                                <th>
-                                    Id
-                                </th>
-                                <td>
-                                    {{$product->id}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Name Book
-                                </th>
-                                <td>
-                                    {{$product->name}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Name Author
-                                </th>
-                                <td>
-                                    {{$product->name_author}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Content
-                                </th>
-                                <td>
-                                    {!! $product->content !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Image Book
-                                </th>
-                                <td>
-                                    <a href="{{$product->image_path}}" target="_blank">
-                                        <img src="{{$product->image_path}}" alt="{{$product->image_name}}"
-                                             style="width: 100px; height: 100px">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Category Book
-                                </th>
-                                <td>
-                                    {{$category}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Registered at
-                                </th>
-                                <td>
-                                    {{$product->created_at}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Updated at
-                                </th>
-                                <td>
-                                    {{$product->updated_at}}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <a style="margin-top:20px;" href="{{url()->previous()}}" class="btn btn-dark">
-                            Back to list
-                        </a>
-                    </div>
-                </div>
+<a type="button" class="btn btn-primary" data-toggle="modal"
+   data-target="#exampleModal{{ $productsItem->id }} ">
+    <i class="fas fa-eye"></i>
+</a>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{$productsItem->id}}" tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông tin tài
+                    khoản</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <td>
+                            {{$productsItem->id}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Tên sách
+                        </th>
+                        <td>
+                            {{$productsItem->name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Tên tác giả
+                        </th>
+                        <td>
+                            {{$productsItem->name_author}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Nội dung
+                        </th>
+                        <td>
+                            {!! $productsItem->content !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Avatar
+                        </th>
+                        <td>
+                            <a href="{{$productsItem->image_path}}"
+                               target="_blank">
+                                <img src="{{$productsItem->image_path}}"
+                                     alt="{{$productsItem->image_name}}"
+                                     style="width: 100px; height: 100px">
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Danh mục được chọn
+                        </th>
+                        <td>
+                            {{($productsItem->category->name)?? "Không tồn tại"}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Tên tài khoản tạo
+                        </th>
+                        <td>
+                            {{($productsItem->users->name)??"Không tồn tại"}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Registered at
+                        </th>
+                        <td>
+                            {{$productsItem->created_at}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Updated at
+                        </th>
+                        <td>
+                            {{$productsItem->updated_at}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
-@endsection
-
-
+</div>

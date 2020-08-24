@@ -1,4 +1,7 @@
 @extends('layouts.template')
+@section('title')
+    <title>Register Account</title>
+@endsection
 @section('content')
     <!-- Sign up form -->
     <section class="signup">
@@ -53,9 +56,32 @@
                             />
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
-                                statements in <a href="#" class="term-service">Terms of service</a></label>
+                            <input type="checkbox" value="unchecked" name="agree-term" id="agree-term" class="agree-term"/>
+                            <label for="agree-term" class="label-agree-term" style="font-size: 14px"><span><span></span></span>I
+                                agree all
+                                statements in</label>
+                            <a style="background-color: #7EBE9B; font-size: 16px" class="term-service" data-toggle="modal"
+                               data-target="#showModal">Terms of service
+                            </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="showModal" tabindex="-1"
+                                 role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Điều khoản dịch vụ</h3>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Bạn có đồng ý nếu công nhận mình đẹp trai @@@</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
@@ -70,3 +96,4 @@
         </div>
     </section>
 @endsection
+

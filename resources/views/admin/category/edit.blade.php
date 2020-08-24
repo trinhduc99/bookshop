@@ -7,16 +7,18 @@
 @endsection
 @section('content')
     <div class="content-wrapper">
-        @include('partials.content-header',['name'=>'Category Book','key'=>'Edit'])
-
+        @include('partials.content-header',['name'=>'Cập nhật Danh mục','key'=>''])
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
                         <form action="{{route('categories.update',['id'=>$category->id])}}" method="post">
                             @csrf
+                            <a href="{{url()->previous()}}" class="btn btn-dark">
+                                Back to list
+                            </a><br><br>
                             <div class="form-group">
-                                <label >Name Category Book</label>
+                                <label >Tên danh mục</label>
                                 <input type="text"
                                        class="form-control @error('name') is-invalid @enderror"
                                        placeholder="Insert Category Book"
@@ -28,10 +30,10 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label ></label>
+                                <label >Chọn danh mục cha</label>
                                 <select class="form-control @error('parent_id') is-invalid @enderror"
                                         name="parent_id" >
-                                    <option value="0">Choose Category Book Parent</option>
+                                    <option value="0">Chọn danh mục cha</option>
                                     {!! $htmlOptions  !!}
                                 </select>
                                 @error('parent_id')
@@ -46,4 +48,3 @@
         </div>
     </div>
 @endsection
-

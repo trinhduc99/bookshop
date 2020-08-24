@@ -1,10 +1,6 @@
-<!-- Main Footer -->
 <footer class="main-footer">
-    <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
        Hello everyone
     </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Sdt: 0988746131 <a href="https://adminlte.io">Email:trinhduc99nd@gmail.com</a>.</strong> All rights reserved.
 </footer>
-{{--./footer--}}

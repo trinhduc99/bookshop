@@ -11,17 +11,6 @@ class CategoryPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param User $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param User $user
@@ -30,6 +19,20 @@ class CategoryPolicy
     public function view(User $user)
     {
         if (!empty($user->role)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function show(User $user)
+    {
+        if (($user->role === 'admin')) {
             return true;
         }
         return false;
@@ -64,20 +67,6 @@ class CategoryPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
-     *
-     * @param User $user
-     * @return mixed
-     */
-    public function show(User $user)
-    {
-        if (($user->role === 'admin')) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Determine whether the user can delete the model.
      *
      * @param User $user
@@ -92,26 +81,16 @@ class CategoryPolicy
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * Determine whether the user can delete the model.
      *
      * @param User $user
-     * @param Category $category
      * @return mixed
      */
-    public function restore(User $user, Category $category)
+    public function deleteView(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param User $user
-     * @param Category $category
-     * @return mixed
-     */
-    public function forceDelete(User $user, Category $category)
-    {
-        //
+        if (($user->role === 'admin')) {
+            return true;
+        }
+        return false;
     }
 }

@@ -1,4 +1,7 @@
 @extends('layouts.template')
+@section('title')
+    <title>Login</title>
+@endsection
 @section('content')
     <!-- Sing in  Form -->
     <section class="sign-in">
@@ -55,15 +58,6 @@
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Log in"/>
                         </div>
                     </form>
-{{--                    <div class="social-login">--}}
-{{--                        <span class="social-label">Or login with</span>--}}
-{{--                        <ul class="socials">--}}
-{{--                            <li><a href="{{ url('auth/facebook') }}" ><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>--}}
-{{--                            <li><a href="" ><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>--}}
-{{--                            <li><a href="" ><i class="display-flex-center zmdi zmdi-github"></i></a></li>--}}
-{{--                            <li><a href="" ><i class="display-flex-center zmdi zmdi-google"></i></a></li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
                 </div>
             </div>
         </div>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -39,26 +40,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToFacebook()
+    public function logout(Request $request)
     {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    public function handleFacebookCallback()
-    {
-        try {
-            $user = Socialite::driver('facebook')->user();
-            $findUser = User::where('facebook_id', $user->id)->first();
-            if ($findUser) {
-                Auth::login($findUser);
-                return redirect('/home');
-            } else {
-                $newUser = User::create(['name' => $user->name, 'email' => $user->email, 'facebook_id' => $user->id]);
-                Auth::login($newUser);
-                return redirect()->back();
-            }
-        } catch (Exception $e) {
-            return redirect('auth/facebook');
-        }
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        Alert::success('Logout Success!', 'Goodbye!','See you again!');
+        return redirect('/login');
     }
 }

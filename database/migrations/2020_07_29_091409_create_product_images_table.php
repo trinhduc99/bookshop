@@ -13,13 +13,7 @@ class CreateProductImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_images', function (Blueprint $table) {
-            $table->id();
-            $table->string('product_id');
-            $table->string('image_path');
-            $table->string('image_name');
-            $table->timestamps();
-        });
+        Schema::dropIfExists('product_images');
     }
 
     /**

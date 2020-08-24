@@ -1,58 +1,83 @@
-@extends('layouts.admin')
-@section('title')
-    <title>List category</title>
-@endsection
-@section('contents')
-    <div class="content-wrapper">
-        @include('partials.content-header',['name'=>'Category Book','key'=>'View'])
-        <div class="content">
-            <div class="container-fluid">
-                <div class="card-body">
-                    <div class="mb-2">
-                            <table class="table table table-bordered table-striped">
-                                <tbody>
-                                <tr>
-                                    <th>
-                                        Id
-                                    </th>
-                                    <td>
-                                        {{$category->id}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Category Book
-                                    </th>
-                                    <td>
-                                        {{$category->name}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Register At
-                                    </th>
-                                    <td>
-                                        {{$category->created_at->format('d/m/Y')}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Updated At
-                                    </th>
-                                    <td>
-                                        {{$category->updated_at->format('d/m/Y')}}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <a style="margin-top:20px;" href="{{url()->previous()}}" class="btn btn-dark">
-                                Back to list
-                            </a>
-                        </div>
-                </div>
+<a style="color: white" type="button" class="btn btn-primary" data-toggle="modal"
+   data-target="#showModal{{ $category->id }}">
+    <i class="fas fa-eye"></i>
+</a>
+<!-- Modal -->
+<div class="modal fade" id="showModal{{$category->id}}" tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông tin tài
+                    khoản</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table table-bordered table-striped">
+                    <tbody>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <td>
+                            {{$category->id}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Tên Danh mục
+                        </th>
+                        <td>
+                            {{$category->name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Danh mục cha
+                        </th>
+                        <td>
+                            {{($category->parentId->name) ?? "Không tồn tại"}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Số lượng danh mục con
+                        </th>
+                        <td>
+                            {{($category->childrenId()->get()->count())}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Số lượng sản phẩm liên quan
+                        </th>
+                        <td>
+                            {{$category->products()->where('category_id',$category->id)->count()}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Ngày tạo
+                        </th>
+                        <td>
+                            {{$category->created_at}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Ngày cập nhật
+                        </th>
+                        <td>
+                            {{$category->updated_at}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-@endsection
-
-
+</div>

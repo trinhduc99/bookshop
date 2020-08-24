@@ -15,38 +15,37 @@ function actionDelete(event) {
     let urlRequest = $(this).data('url');
     let that= $(this);
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
+        title: 'Bạn có chắc chắn?',
+        text: "Sản phẩm sẽ bị xóa!",
+       icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Deleted!'
     }).then((result) => {
         if (result.value) {
             $.ajax({
                 type: 'GET',
                 url: urlRequest,
+
                 success: function (data) {
                     if (data.code == 200) {
                         that.parent().parent().remove();
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Xóa thành công!',
+                                text: 'Sản phẩm đã được xóa.',
+                            })
                     }
                 },
                 error: function () {
-                    if (data.code == 500) {
-                        that.parent().parent().remove();
-                        Swal.fire(
-                            'Deleted fails!',
-                            'Your file has not been deleted.',
-                            'fails'
-                        )
-                    }
-                }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Xóa thất bại!',
+                        text: 'Xóa sản phẩm không thành công.',
+                    })
+                },
+
             });
         }
     })
